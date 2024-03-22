@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>908</width>
-    <height>598</height>
+    <width>974</width>
+    <height>656</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -104,7 +104,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>imagenes/barra-de-menus.png</normaloff>imagenes/barra-de-menus.png</iconset>
+              <normaloff>../../../Descargas2/GUI CANSAT/barra-de-menus.png</normaloff>../../../Descargas2/GUI CANSAT/barra-de-menus.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -134,7 +134,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>imagenes/minimizar.png</normaloff>imagenes/minimizar.png</iconset>
+              <normaloff>../../../Descargas2/GUI CANSAT/minimizar.png</normaloff>../../../Descargas2/GUI CANSAT/minimizar.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -151,7 +151,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>imagenes/restaurar.png</normaloff>imagenes/restaurar.png</iconset>
+              <normaloff>../../../Descargas2/GUI CANSAT/restaurar.png</normaloff>../../../Descargas2/GUI CANSAT/restaurar.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -168,7 +168,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>imagenes/maximizar.png</normaloff>imagenes/maximizar.png</iconset>
+              <normaloff>../../../Descargas2/GUI CANSAT/maximizar.png</normaloff>../../../Descargas2/GUI CANSAT/maximizar.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -185,7 +185,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>imagenes/cerrar.png</normaloff>imagenes/cerrar.png</iconset>
+              <normaloff>../../../Descargas2/GUI CANSAT/cerrar.png</normaloff>../../../Descargas2/GUI CANSAT/cerrar.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -198,8 +198,21 @@ border-radius:20px;
          </layout>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="1" column="0">
         <widget class="QFrame" name="frame_contenido">
+         <property name="styleSheet">
+          <string notr="true">QFrame{
+background-color: rgb(61,61,61);
+}
+
+QLabel{
+font: 87 12pt &quot;Arial Black&quot;;
+background-color: #000000ff;
+color: rgb(0,206,151);
+border: 0px solid #14C8DC;
+}
+</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -207,7 +220,7 @@ border-radius:20px;
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QGridLayout" name="gridLayout_5">
-          <item row="2" column="0">
+          <item row="1" column="0">
            <widget class="QFrame" name="frame_control">
             <property name="minimumSize">
              <size>
@@ -258,11 +271,12 @@ font: 77 10pt &quot;Arial Black&quot;;
                 </size>
                </property>
                <property name="text">
-                <string>TPA</string>
+                <string> Presión y 
+ Altura</string>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/chip.png</normaloff>imagenes/chip.png</iconset>
+                 <normaloff>../../../Descargas2/GUI CANSAT/chip.png</normaloff>../../../Descargas2/GUI CANSAT/chip.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -280,12 +294,39 @@ font: 77 10pt &quot;Arial Black&quot;;
                  <height>50</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>QPushButton *createQPushButtonWithWordWrap(QWidget *parent, const QString &amp;text)
+{
+   auto btn = new QPushButton(parent);
+   auto label = new QLabel(text,btn);
+   label-&gt;setWordWrap(true);
+
+   auto layout = new QHBoxLayout(btn);
+   layout-&gt;addWidget(label,0,Qt::AlignCenter);
+
+   return btn;
+}</string>
+               </property>
+               <property name="whatsThis">
+                <string>QPushButton *createQPushButtonWithWordWrap(QWidget *parent, const QString &amp;text)
+{
+   auto btn = new QPushButton(parent);
+   auto label = new QLabel(text,btn);
+   label-&gt;setWordWrap(true);
+
+   auto layout = new QHBoxLayout(btn);
+   layout-&gt;addWidget(label,0,Qt::AlignCenter);
+
+   return btn;
+}</string>
+               </property>
                <property name="text">
-                <string>Aceleración </string>
+                <string> Ángulo y 
+ Temperatura</string>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/chip.png</normaloff>imagenes/chip.png</iconset>
+                 <normaloff>../../../Descargas2/GUI CANSAT/chip.png</normaloff>../../../Descargas2/GUI CANSAT/chip.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -304,11 +345,11 @@ font: 77 10pt &quot;Arial Black&quot;;
                 </size>
                </property>
                <property name="text">
-                <string>Ángulo</string>
+                <string> Aceleración</string>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/chip.png</normaloff>imagenes/chip.png</iconset>
+                 <normaloff>../../../Descargas2/GUI CANSAT/chip.png</normaloff>../../../Descargas2/GUI CANSAT/chip.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -327,11 +368,11 @@ font: 77 10pt &quot;Arial Black&quot;;
                 </size>
                </property>
                <property name="text">
-                <string>Distancia</string>
+                <string> Otros</string>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/chip.png</normaloff>imagenes/chip.png</iconset>
+                 <normaloff>../../../Descargas2/GUI CANSAT/chip.png</normaloff>../../../Descargas2/GUI CANSAT/chip.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -344,7 +385,7 @@ font: 77 10pt &quot;Arial Black&quot;;
             </layout>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="1" column="1">
            <widget class="QFrame" name="frame_paginas">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -388,8 +429,8 @@ border: 0px solid #14C8DC;
                </property>
                <widget class="QWidget" name="pagina1">
                 <layout class="QGridLayout" name="gridLayout_2">
-                 <item row="0" column="1">
-                  <widget class="QFrame" name="frame_3">
+                 <item row="1" column="1">
+                  <widget class="QFrame" name="frame_5">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -397,8 +438,9 @@ border: 0px solid #14C8DC;
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);
+                    <string notr="true">background-color: rgb(35, 45, 36);
 border-radius: 20px;
+
 </string>
                    </property>
                    <property name="frameShape">
@@ -407,35 +449,27 @@ border-radius: 20px;
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_3">
-                    <item>
-                     <layout class="QVBoxLayout" name="presion"/>
+                   <layout class="QGridLayout" name="gridLayout_9">
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_7">
+                      <property name="text">
+                       <string>m</string>
+                      </property>
+                     </widget>
                     </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QFrame" name="frame_2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 20px;
-</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_2">
-                    <item>
-                     <layout class="QVBoxLayout" name="temperatura"/>
+                    <item row="1" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="altura_label">
+                      <property name="text">
+                       <string>321</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_8">
+                      <property name="text">
+                       <string>Altura</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -465,8 +499,34 @@ border-radius: 20px;</string>
                    </layout>
                   </widget>
                  </item>
-                 <item row="1" column="1">
-                  <widget class="QFrame" name="frame_5">
+                 <item row="0" column="0">
+                  <widget class="QFrame" name="frame_2">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 20px;
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_2">
+                    <item>
+                     <layout class="QVBoxLayout" name="presion"/>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QFrame" name="frame_3">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -485,29 +545,28 @@ border-radius: 20px;
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_5">
-                    <item>
-                     <widget class="QLabel" name="label">
-                      <property name="styleSheet">
-                       <string notr="true">QLabel{
-font: 87 12pt &quot;Arial Black&quot;;
-background-color: #000000ff;
-color: rgb(255, 255, 255);
-border:0px solid #14C8DC;
-}</string>
-                      </property>
+                   <layout class="QGridLayout" name="gridLayout_8">
+                    <item row="1" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="presion_label">
                       <property name="text">
-                       <string>           OOCH</string>
+                       <string>60</string>
                       </property>
                      </widget>
                     </item>
-                    <item>
-                     <widget class="QLabel" name="label_2">
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_6">
+                      <property name="text">
+                       <string>pa</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_5">
                       <property name="styleSheet">
-                       <string notr="true">image: url(:/ooch/OOCH.png);</string>
+                       <string notr="true"/>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Presión</string>
                       </property>
                      </widget>
                     </item>
@@ -518,7 +577,26 @@ border:0px solid #14C8DC;
                </widget>
                <widget class="QWidget" name="pagina2">
                 <layout class="QGridLayout" name="gridLayout_6">
-                 <item row="0" column="0">
+                 <item row="2" column="0">
+                  <widget class="QFrame" name="frame_8">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 20px;</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_7">
+                    <item>
+                     <layout class="QVBoxLayout" name="temperatura"/>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
                   <widget class="QFrame" name="frame_6">
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(255, 255, 255);
@@ -532,7 +610,137 @@ border-radius: 20px;</string>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_6">
                     <item>
-                     <layout class="QVBoxLayout" name="aceleracion"/>
+                     <layout class="QVBoxLayout" name="angulo"/>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QFrame" name="frame_9">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(35, 45, 36);
+border-radius: 20px;
+
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_10">
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_3">
+                      <property name="text">
+                       <string>°C</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_10">
+                      <property name="text">
+                       <string>Temperatura</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="temperatura_label">
+                      <property name="layoutDirection">
+                       <enum>Qt::LeftToRight</enum>
+                      </property>
+                      <property name="text">
+                       <string>15</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QFrame" name="frame_7">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(35, 45, 36);
+border-radius: 20px;
+
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_11">
+                    <item row="0" column="0" colspan="4" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_9">
+                      <property name="text">
+                       <string>Ángulo</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="2">
+                     <widget class="QLabel" name="label_11">
+                      <property name="text">
+                       <string>°</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="roll_label">
+                      <property name="text">
+                       <string>40</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="label_16">
+                      <property name="text">
+                       <string>Pitch</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="pitch_label">
+                      <property name="text">
+                       <string>50</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="yaw_label">
+                      <property name="text">
+                       <string>60</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_15">
+                      <property name="text">
+                       <string>Roll:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="2">
+                     <widget class="QLabel" name="label_4">
+                      <property name="text">
+                       <string>°</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="label_17">
+                      <property name="text">
+                       <string>Yaw</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="2">
+                     <widget class="QLabel" name="label_14">
+                      <property name="text">
+                       <string>°</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -555,7 +763,104 @@ border-radius: 20px;</string>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_10">
                     <item>
-                     <layout class="QVBoxLayout" name="angulo"/>
+                     <layout class="QVBoxLayout" name="aceleracion_subida"/>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QFrame" name="frame_13">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(35, 45, 36);
+border-radius: 20px;
+
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_13">
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_12">
+                      <property name="text">
+                       <string>Aceleración Subida</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_2">
+                      <property name="text">
+                       <string>m/s^2</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="aceleracion_sub_label">
+                      <property name="text">
+                       <string>7</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QFrame" name="frame_12">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(35, 45, 36);
+border-radius: 20px;
+
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_12">
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_18">
+                      <property name="text">
+                       <string>m/s^2</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="aceleracion_caida_label">
+                      <property name="text">
+                       <string>9.8</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_19">
+                      <property name="text">
+                       <string>Aceleración Caída</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QFrame" name="frame_11">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 20px;</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item>
+                     <layout class="QVBoxLayout" name="aceleracion_caida"/>
                     </item>
                    </layout>
                   </widget>
@@ -564,11 +869,13 @@ border-radius: 20px;</string>
                </widget>
                <widget class="QWidget" name="pagina4">
                 <layout class="QGridLayout" name="gridLayout_7">
-                 <item row="0" column="0">
-                  <widget class="QFrame" name="frame_14">
+                 <item row="0" column="1">
+                  <widget class="QFrame" name="frame_15">
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 20px;</string>
+                    <string notr="true">background-color: rgb(35, 45, 36);
+border-radius: 20px;
+
+</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -576,18 +883,38 @@ border-radius: 20px;</string>
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_14">
-                    <item>
-                     <layout class="QVBoxLayout" name="distancia"/>
+                   <layout class="QGridLayout" name="gridLayout_15">
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_26">
+                      <property name="text">
+                       <string>m/s</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="vel_max_label">
+                      <property name="text">
+                       <string>180</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_27">
+                      <property name="text">
+                       <string>Velocidad Máxima</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
                  </item>
-                 <item row="0" column="1">
-                  <widget class="QFrame" name="frame_15">
+                 <item row="0" column="0">
+                  <widget class="QFrame" name="frame_14">
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 20px;</string>
+                    <string notr="true">background-color: rgb(35, 45, 36);
+border-radius: 20px;
+
+</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -595,9 +922,157 @@ border-radius: 20px;</string>
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_15">
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_8"/>
+                   <layout class="QGridLayout" name="gridLayout_14">
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_24">
+                      <property name="text">
+                       <string>m</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="altura_max_label">
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="text">
+                       <string>500</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_25">
+                      <property name="text">
+                       <string>Altura Máxima</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QFrame" name="frame_16">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(35, 45, 36);
+border-radius: 20px;
+
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_16">
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_34">
+                      <property name="text">
+                       <string>X:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="label_35">
+                      <property name="text">
+                       <string>Y:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="label_36">
+                      <property name="text">
+                       <string>Z:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="4" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_33">
+                      <property name="text">
+                       <string>Coordenadas</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="x_coord_label">
+                      <property name="text">
+                       <string>40</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="y_coord_label">
+                      <property name="text">
+                       <string>50</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="z_coord_label">
+                      <property name="text">
+                       <string>60</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="2" colspan="2">
+                     <widget class="QLabel" name="label_32">
+                      <property name="text">
+                       <string>°</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="2" colspan="2">
+                     <widget class="QLabel" name="label_30">
+                      <property name="text">
+                       <string>°</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="2" colspan="2">
+                     <widget class="QLabel" name="label_28">
+                      <property name="text">
+                       <string>°</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QFrame" name="frame_17">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(35, 45, 36);
+border-radius: 20px;
+
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_17">
+                    <item row="1" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="distancia_label">
+                      <property name="text">
+                       <string>120</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_38">
+                      <property name="text">
+                       <string>m</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="label_37">
+                      <property name="text">
+                       <string>Distancia entre las 2 etapas</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -619,7 +1094,7 @@ border-radius: 20px;</string>
   </widget>
  </widget>
  <resources>
-  <include location="imagenes/logo.qrc"/>
+  <include location="../../../Descargas2/gui-python-pyqt5-main/GUI_Cansat/imagenes/logo.qrc"/>
  </resources>
  <connections/>
 </ui>

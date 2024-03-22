@@ -8,10 +8,10 @@ from PyQt5.uic import loadUi
 
 from imagenes import logo
 
-from grafica_Aceleracion import *
+from grafica_Aceleracion_Caida import *
+from grafica_Aceleracion_Subida import *
 from grafica_Altura import *
 from grafica_Angulo import *
-from grafica_Distancia import *
 from grafica_Presion import *
 from grafica_Temperatura import *
 
@@ -48,20 +48,20 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
 
-		self.presionC = GraficaPresion()
-		self.alturaC = GraficaAltura()
-		self.temperaturaC = GraficaTemperatura()
-		self.aceleracionC = GraficaAceleracion()
-		self.anguloC = GraficaAngulo()
-		self.distanciaC = GraficaDistancia()
+		self.gfc_presion = GraficaPresion()
+		self.gfc_altura = GraficaAltura()
+		self.gfc_temperatura = GraficaTemperatura()
+		self.gfc_aceleracion_subida = GraficaAceleracionSubida()
+		self.gfc_aceleracion_caida = GraficaAceleracionCaida()
+		self.gfc_angulo = GraficaAngulo()
 		
 
-		self.presion.addWidget(self.presionC)
-		self.altura.addWidget(self.alturaC)	
-		self.temperatura.addWidget(self.temperaturaC)
-		self.aceleracion.addWidget(self.aceleracionC)
-		self.angulo.addWidget(self.anguloC)
-		self.distancia.addWidget(self.distanciaC)
+		self.presion.addWidget(self.gfc_presion)
+		self.altura.addWidget(self.gfc_altura)	
+		self.temperatura.addWidget(self.gfc_temperatura)
+		self.aceleracion_subida.addWidget(self.gfc_aceleracion_subida)
+		self.aceleracion_caida.addWidget(self.gfc_aceleracion_caida)
+		self.angulo.addWidget(self.gfc_angulo)
 		
 	def control_bt_minimizar(self):
 		self.showMinimized()		
