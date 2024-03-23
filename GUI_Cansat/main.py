@@ -47,7 +47,7 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasB.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina2))
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
-
+		
 		self.gfc_presion = GraficaPresion()
 		self.gfc_altura = GraficaAltura()
 		self.gfc_temperatura = GraficaTemperatura()
@@ -62,6 +62,7 @@ class VentanaPrincipal(QMainWindow):
 		self.aceleracion_subida.addWidget(self.gfc_aceleracion_subida)
 		self.aceleracion_caida.addWidget(self.gfc_aceleracion_caida)
 		self.angulo.addWidget(self.gfc_angulo)
+		# self.pause(0.05)
 		
 	def control_bt_minimizar(self):
 		self.showMinimized()		
@@ -99,8 +100,7 @@ class VentanaPrincipal(QMainWindow):
 		self.clickPosition = event.globalPos()
 
 	def mover_ventana(self, event):
-		if self.isMaximized() == False:			
-			if event.buttons() == QtCore.Qt.LeftButton:
+		if self.isMaximized() == False and event.buttons() == QtCore.Qt.LeftButton:
 				self.move(self.pos() + event.globalPos() - self.clickPosition)
 				self.clickPosition = event.globalPos()
 				event.accept()
@@ -115,6 +115,5 @@ class VentanaPrincipal(QMainWindow):
 
 if __name__ == "__main__":
      app = QApplication(sys.argv)
-     mi_app = VentanaPrincipal()
-     mi_app.show()
+     VentanaPrincipal()
      sys.exit(app.exec_())	
