@@ -1,6 +1,6 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
-import sys
+import sys, serial
 from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView
 from PyQt5.QtCore import QPropertyAnimation, QEasingCurve
 from PyQt5 import QtCore, QtWidgets
@@ -48,6 +48,9 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
 		
+		self.serial.readyRead.connect(self.read_ports)
+
+
 		self.gfc_presion = GraficaPresion()
 		self.gfc_altura = GraficaAltura()
 		self.gfc_temperatura = GraficaTemperatura()
@@ -112,8 +115,14 @@ class VentanaPrincipal(QMainWindow):
 			self.showNormal()
 			self.bt_restaurar.hide()
 			self.bt_maximizar.show()
-
-if __name__ == "__main__":
+	def read_ports(self):
+		if not self.serial.canReadLine(): return
+		rx= self.serial.readLine()
+		x= str(rx, "utf-8").strip()
+		x = float(x)
+		print(x)
+		self.y =self.y[1]	
+	if __name__ == "__main__":
      app = QApplication(sys.argv)
      VentanaPrincipal()
      sys.exit(app.exec_())	
