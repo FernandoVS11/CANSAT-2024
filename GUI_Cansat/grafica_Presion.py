@@ -11,13 +11,15 @@ import  serial,time
 #     raise
 
 class GraficaPresion(FigureCanvas):    
-	def __init__(self, parent=None):
+	def __init__(self, x,y):
 		self.fig , self.ax = plt.subplots()
 		super().__init__(self.fig) 
 		self.ax.set_ylabel('presion', fontsize=12)
 		self.ax.set_xlabel('tiempo', fontsize=12)
 		self.ax.set_title('Presion')
-		self.ax.plot([0,50,40,20,30,10], 'o-c')
+		tiempo= x
+		presion= y
+		self.ax.plot(tiempo, presion, 'o-c')
 		#time.sleep(1)  
 		
 			

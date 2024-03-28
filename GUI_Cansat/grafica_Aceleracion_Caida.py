@@ -3,14 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class GraficaAceleracionCaida(FigureCanvas):
-	def __init__(self, parent=None):
+	def __init__(self, x,y,z):
 		self.fig=plt.figure()
 		super().__init__(self.fig) 
 
 		self.ax= plt.axes(projection="3d")
-		x_data= np.arange(0, 50, 0.1)
-		y_data= np.arange(0, 50, 0.1)
-		z_data= x_data * y_data
+		x_data= x
+		y_data= y
+		z_data= z
 
 		self.ax.plot(x_data, y_data, z_data, color='r')
 		self.ax.set_title("Aceleracion")

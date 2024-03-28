@@ -3,10 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class GraficaTemperatura(FigureCanvas):
-	def __init__(self, parent=None):
+	def __init__(self, x,y):
 		self.fig , self.ax = plt.subplots()
-		time=[1,2,3,4,5,6,7,8]
-		temp=[18.1,15.8,10,11.5,20,21.2,10.2,15.2]
+		time= x
+		temp= y
 		self.ax = plt.plot(time,temp, color='r', marker='o')
 		plt.title("Temperatura", fontsize=15)
 		plt.xlabel("tiempo", fontsize=12)

@@ -48,15 +48,20 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
 		
-		self.serial.readyRead.connect(self.read_ports)
+		#self.serial.readyRead.connect(self.read_ports)
+
+		self.x = list(np.linspace(0,100,100))
+		self.y = list(np.linspace(0,100,100))
+		self.z = list(np.linspace(0,0,100))
+		self.value_arduino
 
 
-		self.gfc_presion = GraficaPresion()
-		self.gfc_altura = GraficaAltura()
-		self.gfc_temperatura = GraficaTemperatura()
-		self.gfc_aceleracion_subida = GraficaAceleracionSubida()
-		self.gfc_aceleracion_caida = GraficaAceleracionCaida()
-		self.gfc_angulo = GraficaAngulo()
+		self.gfc_presion = GraficaPresion(self.x, self.y)
+		self.gfc_altura = GraficaAltura(self.value_arduino)
+		self.gfc_temperatura = GraficaTemperatura(self.x, self.y)
+		self.gfc_aceleracion_subida = GraficaAceleracionSubida(self.x, self.y, self.z)
+		self.gfc_aceleracion_caida = GraficaAceleracionCaida(self.x, self.y, self.z)
+		self.gfc_angulo = GraficaAngulo(self.x, self.y, self.z)
 		
 
 		self.presion.addWidget(self.gfc_presion)
@@ -115,14 +120,21 @@ class VentanaPrincipal(QMainWindow):
 			self.showNormal()
 			self.bt_restaurar.hide()
 			self.bt_maximizar.show()
+
 	def read_ports(self):
 		if not self.serial.canReadLine(): return
 		rx= self.serial.readLine()
-		x= str(rx, "utf-8").strip()
-		x = float(x)
-		print(x)
-		self.y =self.y[1]	
-	if __name__ == "__main__":
-     app = QApplication(sys.argv)
-     VentanaPrincipal()
-     sys.exit(app.exec_())	
+		self.value_arduino= str(rx, "utf-8").strip()
+		self.value_arduino = float(self.value_arduino)
+		print(self.value_arduino)
+		self.x =self.y[1:]
+		self.x.append(self.value_arduino)
+		self.y =self.y[1:]
+		self.y.append(self.value_arduino)
+		# self.plt.clear()
+		# self.plt.plot(self.x, self.y)	
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    VentanaPrincipal().show()
+    sys.exit(app.exec_())	
