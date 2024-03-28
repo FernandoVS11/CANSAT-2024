@@ -16,11 +16,9 @@ class GraficaAngulo(FigureCanvas):
 		s2 = np.sin(y)
 		s3 = np.sin(z)
 
-		self.fig, self.ax = plt.plot(t, s1, t, s2, t, s3)
-		self.ax.plot(t, s1, t, s2)
-		self.ax.set_xlim(0, 2)
-		self.ax.set_xlabel('Time (s)')
-		self.ax.set_ylabel('x, y, and z')
-
-		plt.show()
+		self.fig, self.ax = plt.subplots()
+		self.ax = plt.plot(s1,s2,s3)
+		plt.title("Angulo", fontsize=15)
+		plt.xlabel("tiempo", fontsize=12)
+		plt.ylabel("Grados", fontsize=12)
 		super().__init__(self.fig) 

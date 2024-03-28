@@ -6,7 +6,7 @@ class GraficaAltura(FigureCanvas):
 	def __init__(self, value_arduino):
 		self.fig , self.ax = plt.subplots()
 		super().__init__(self.fig) 
-		altura = value_arduino+" m"
+		altura = value_arduino
 		counts = value_arduino
 		bar_labels = 'red'
 		bar_colors = 'tab:red'

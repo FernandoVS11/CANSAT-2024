@@ -1,8 +1,9 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
-import sys, serial
-from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView
-from PyQt5.QtCore import QPropertyAnimation, QEasingCurve
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtCore import QPropertyAnimation
+from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.uic import loadUi
 
@@ -28,7 +29,7 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_minimizar.clicked.connect(self.control_bt_minimizar)		
 		self.bt_restaurar.clicked.connect(self.control_bt_normal)
 		self.bt_maximizar.clicked.connect(self.control_bt_maximizar)
-		self.bt_cerrar.clicked.connect(lambda: self.close())
+		self.bt_cerrar.clicked.connect(lambda: self.close() and self.serial.close())
 
 		#eliminar barra y de titulo - opacidad
 		self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -47,14 +48,20 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasB.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina2))
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
-		
-		#self.serial.readyRead.connect(self.read_ports)
+		self.serial= QSerialPort()
+		try:
+			self.serial.setBaudRate(9600)
+			self.serial.setPortName("COM3")
+		except:
+			print("Error de coneccion con el puerto")
 
 		self.x = list(np.linspace(0,100,100))
 		self.y = list(np.linspace(0,100,100))
-		self.z = list(np.linspace(0,0,100))
-		self.value_arduino
+		self.z = list(np.linspace(0,100,100))
+		self.value_arduino = 0
+		
 
+		self.serial.readyRead.connect(self.read_ports)
 
 		self.gfc_presion = GraficaPresion(self.x, self.y)
 		self.gfc_altura = GraficaAltura(self.value_arduino)
@@ -131,6 +138,8 @@ class VentanaPrincipal(QMainWindow):
 		self.x.append(self.value_arduino)
 		self.y =self.y[1:]
 		self.y.append(self.value_arduino)
+		self.z =self.y[1:]
+		self.z.append(self.value_arduino)
 		# self.plt.clear()
 		# self.plt.plot(self.x, self.y)	
 
