@@ -1,11 +1,12 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
-import sys
+import sys,serial,time,collections
+from threading import Thread
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QPropertyAnimation
-from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.uic import loadUi
+import matplotlib.animation as animation
 
 from imagenes import logo
 
@@ -16,11 +17,14 @@ from grafica_Angulo import *
 from grafica_Presion import *
 from grafica_Temperatura import *
 
+isRecieve = False
+isRun = True
+value = 0.0
+
 class VentanaPrincipal(QMainWindow):
 	def __init__(self):
 		super(VentanaPrincipal,self).__init__()
 		loadUi('Diseño.ui',self)
-
 		self.bt_menu.clicked.connect(self.mover_menu)
 
 		self.bt_restaurar.hide()
@@ -48,19 +52,30 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasB.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina2))
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
-		self.serial= QSerialPort()
+		
+		serial_port = 'COM3'
+		baud_rate = 9600
 		try:
-			self.serial.setBaudRate(9600)
-			self.serial.setPortName("COM3")
+			serial_connection = serial.Serial(serial_port, baud_rate)
 		except:
 			print("Error de coneccion con el puerto")
+
+		Samples =100
+		sample_time = 200
+		data = collections.deque([0] * self.Samples, maxlen= self.Samples)
 
 		self.x = list(np.linspace(0,100,100))
 		self.y = list(np.linspace(0,100,100))
 		self.z = list(np.linspace(0,100,100))
 		self.value_arduino = 0
 		
+		thread = Thread(target = getData)
+		thread.start()
 
+		while isRecieve != True:
+			print("Starting receive data")
+			time.sleep(0.1)
+		anim = animation.FuncAnimation(fig, plotData, fargs=(Samples,serial_connection,lines,lineValueText,lineLabel), interval=sample_time)
 		self.serial.readyRead.connect(self.read_ports)
 
 		self.gfc_presion = GraficaPresion(self.x, self.y)
@@ -78,7 +93,18 @@ class VentanaPrincipal(QMainWindow):
 		self.aceleracion_caida.addWidget(self.gfc_aceleracion_caida)
 		self.angulo.addWidget(self.gfc_angulo)
 		# self.pause(0.05)
-		
+	def getData(self):
+		time.sleep(1.0)
+		serial_connection.reset_inout_buffer()
+		while (isRun):
+			global isRecieve
+			global value
+			value = float(serial_connection.readline().strip())
+			isRecieve = True
+	def plotData(self,Samples,serialConnection,lines,lineValueText,lineLabel):
+		data.append(value)
+		lines.set_data(range(Samples),data)
+		lineValueText.set_text(lineLabel+' = '+ str(round(value,2)))
 	def control_bt_minimizar(self):
 		self.showMinimized()		
 
