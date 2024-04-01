@@ -1,6 +1,6 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
-import serial, time
+import sys,serial, time
 from threading import Thread
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QPropertyAnimation
@@ -20,7 +20,10 @@ from grafica_Temperatura import *
 isRecieve = False
 isRun = True
 value = 0.0
-serial_connection = serial
+serial_connection = serial.Serial('COM3',9600)
+if not serial_connection.isOpen():
+    serial_connection.open()
+print('com3 is open', serial_connection.isOpen())
 
 class VentanaPrincipal(QMainWindow):
 	def __init__(self):
@@ -54,12 +57,12 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
 		
-		serial_port = 'COM3'
-		baud_rate = 9600
-		try:
-			self.serial_connection = serial.Serial(serial_port, baud_rate)
-		except:
-			print("Error de coneccion con el puerto")
+		# serial_port = 'COM3'
+		# baud_rate = 9600
+		# try:
+		# 	self.serial_connection = serial.Serial(serial_port, baud_rate)
+		# except:
+		# 	print("Error de coneccion con el puerto")
 
 		
 		thread = Thread(target = getData)
@@ -139,12 +142,12 @@ class VentanaPrincipal(QMainWindow):
 			self.showNormal()
 			self.bt_restaurar.hide()
 			self.bt_maximizar.show()
-def getData(self):
+def getData():
 	time.sleep(1.0)
-	self.serial_connection.reset_inout_buffer()
 	while (isRun):
 		global isRecieve
-		self.value = float(self.serial_connection.readline().strip())
+		global value
+		value = float(serial_connection.readline())
 		isRecieve = True
 
 if __name__ == "__main__":

@@ -3,11 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class GraficaAltura(FigureCanvas):
-	def __init__(self, value_arduino):
+	def __init__(self):
 		self.fig , self.ax = plt.subplots()
 		super().__init__(self.fig) 
-		altura = value_arduino
-		counts = value_arduino
+		altura = 321
+		counts = 321
 		bar_labels = 'red'
 		bar_colors = 'tab:red'
 

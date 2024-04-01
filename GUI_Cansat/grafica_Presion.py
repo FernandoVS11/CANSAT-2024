@@ -1,7 +1,6 @@
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import numpy as np
 import matplotlib.pyplot as plt
-import  serial,time
 
 # try:
 #     ard = serial.Serial("COM3", 9600)     
@@ -11,14 +10,14 @@ import  serial,time
 #     raise
 
 class GraficaPresion(FigureCanvas):    
-	def __init__(self, x,y):
+	def __init__(self):
 		self.fig , self.ax = plt.subplots()
 		super().__init__(self.fig) 
 		self.ax.set_ylabel('presion', fontsize=12)
 		self.ax.set_xlabel('tiempo', fontsize=12)
 		self.ax.set_title('Presion')
-		tiempo= x
-		presion= y
+		tiempo= 10
+		presion= 10
 		self.ax.plot(tiempo, presion, 'o-c')
 		#time.sleep(1)  
 		

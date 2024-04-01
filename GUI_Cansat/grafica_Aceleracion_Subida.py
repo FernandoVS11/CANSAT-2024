@@ -3,14 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class GraficaAceleracionSubida(FigureCanvas):
-	def __init__(self, x, y, z):
+	def __init__(self):
 		self.fig=plt.figure()
 		super().__init__(self.fig) 
 
 		self.ax= plt.axes(projection="3d")
-		x_data= x
-		y_data= y
-		z_data= z
+		x_data= 10
+		y_data= 10
+		z_data= 10
 
 		self.ax.plot(x_data, y_data, z_data)
 		self.ax.set_title("Aceleracion")

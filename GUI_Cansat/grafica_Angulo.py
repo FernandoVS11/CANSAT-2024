@@ -4,7 +4,7 @@ import numpy as np
 
 
 class GraficaAngulo(FigureCanvas):
-	def __init__(self, x,y,z):
+	def __init__(self):
 		# Fixing random state for reproducibility
 		np.random.seed(19680801)
 
@@ -12,9 +12,9 @@ class GraficaAngulo(FigureCanvas):
 		t = np.arange(0, 30, dt)
 
 		# Two signals with a coherent part at 10 Hz and a random part
-		s1 = np.sin(x)
-		s2 = np.sin(y)
-		s3 = np.sin(z)
+		s1 = np.sin(10)
+		s2 = np.sin(10)
+		s3 = np.sin(10)
 
 		self.fig, self.ax = plt.subplots()
 		self.ax = plt.plot(s1,s2,s3)
