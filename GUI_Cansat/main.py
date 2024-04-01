@@ -1,12 +1,12 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
-import sys,serial,time,collections
+import serial, time
 from threading import Thread
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QPropertyAnimation
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.uic import loadUi
-import matplotlib.animation as animation
+
 
 from imagenes import logo
 
@@ -20,6 +20,7 @@ from grafica_Temperatura import *
 isRecieve = False
 isRun = True
 value = 0.0
+serial_connection = serial
 
 class VentanaPrincipal(QMainWindow):
 	def __init__(self):
@@ -56,18 +57,10 @@ class VentanaPrincipal(QMainWindow):
 		serial_port = 'COM3'
 		baud_rate = 9600
 		try:
-			serial_connection = serial.Serial(serial_port, baud_rate)
+			self.serial_connection = serial.Serial(serial_port, baud_rate)
 		except:
 			print("Error de coneccion con el puerto")
 
-		Samples =100
-		sample_time = 200
-		data = collections.deque([0] * self.Samples, maxlen= self.Samples)
-
-		self.x = list(np.linspace(0,100,100))
-		self.y = list(np.linspace(0,100,100))
-		self.z = list(np.linspace(0,100,100))
-		self.value_arduino = 0
 		
 		thread = Thread(target = getData)
 		thread.start()
@@ -75,15 +68,13 @@ class VentanaPrincipal(QMainWindow):
 		while isRecieve != True:
 			print("Starting receive data")
 			time.sleep(0.1)
-		anim = animation.FuncAnimation(fig, plotData, fargs=(Samples,serial_connection,lines,lineValueText,lineLabel), interval=sample_time)
-		self.serial.readyRead.connect(self.read_ports)
-
-		self.gfc_presion = GraficaPresion(self.x, self.y)
-		self.gfc_altura = GraficaAltura(self.value_arduino)
-		self.gfc_temperatura = GraficaTemperatura(self.x, self.y)
-		self.gfc_aceleracion_subida = GraficaAceleracionSubida(self.x, self.y, self.z)
-		self.gfc_aceleracion_caida = GraficaAceleracionCaida(self.x, self.y, self.z)
-		self.gfc_angulo = GraficaAngulo(self.x, self.y, self.z)
+		
+		self.gfc_presion = GraficaPresion()
+		self.gfc_altura = GraficaAltura()
+		self.gfc_temperatura = GraficaTemperatura()
+		self.gfc_aceleracion_subida = GraficaAceleracionSubida()
+		self.gfc_aceleracion_caida = GraficaAceleracionCaida()
+		self.gfc_angulo = GraficaAngulo()
 		
 
 		self.presion.addWidget(self.gfc_presion)
@@ -92,19 +83,14 @@ class VentanaPrincipal(QMainWindow):
 		self.aceleracion_subida.addWidget(self.gfc_aceleracion_subida)
 		self.aceleracion_caida.addWidget(self.gfc_aceleracion_caida)
 		self.angulo.addWidget(self.gfc_angulo)
-		# self.pause(0.05)
-	def getData(self):
-		time.sleep(1.0)
-		serial_connection.reset_inout_buffer()
-		while (isRun):
-			global isRecieve
-			global value
-			value = float(serial_connection.readline().strip())
-			isRecieve = True
-	def plotData(self,Samples,serialConnection,lines,lineValueText,lineLabel):
+		VentanaPrincipal.show()
+		self.isRun=False
+		thread.join()
+		self.serial_connection.close()
+	def plotData(self,data,samples,lines,line_value_text,line_label):
 		data.append(value)
-		lines.set_data(range(Samples),data)
-		lineValueText.set_text(lineLabel+' = '+ str(round(value,2)))
+		lines.set_data(range(samples), data)
+		line_value_text.set_text(line_label+' = '+ str(round(value,2)))
 	def control_bt_minimizar(self):
 		self.showMinimized()		
 
@@ -153,23 +139,15 @@ class VentanaPrincipal(QMainWindow):
 			self.showNormal()
 			self.bt_restaurar.hide()
 			self.bt_maximizar.show()
-
-	def read_ports(self):
-		if not self.serial.canReadLine(): return
-		rx= self.serial.readLine()
-		self.value_arduino= str(rx, "utf-8").strip()
-		self.value_arduino = float(self.value_arduino)
-		print(self.value_arduino)
-		self.x =self.y[1:]
-		self.x.append(self.value_arduino)
-		self.y =self.y[1:]
-		self.y.append(self.value_arduino)
-		self.z =self.y[1:]
-		self.z.append(self.value_arduino)
-		# self.plt.clear()
-		# self.plt.plot(self.x, self.y)	
+def getData(self):
+	time.sleep(1.0)
+	self.serial_connection.reset_inout_buffer()
+	while (isRun):
+		global isRecieve
+		self.value = float(self.serial_connection.readline().strip())
+		isRecieve = True
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    VentanaPrincipal().show()
+    VentanaPrincipal()
     sys.exit(app.exec_())	
