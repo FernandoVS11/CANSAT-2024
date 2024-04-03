@@ -1,7 +1,7 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
 import sys,serial, time
-from threading import Thread
+import threading 
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QPropertyAnimation
 from PyQt5 import QtCore, QtWidgets
@@ -20,6 +20,17 @@ from grafica_Temperatura import *
 isRecieve = False
 isRun = True
 value = 0.0
+
+# def getData(serial_connection):
+# 	print("Entre")
+# 	time.sleep(1.0)
+# 	while (isRun):
+# 		global isRecieve
+# 		global value
+# 		value = float(serial_connection.readline().strip())
+# 		print(value)
+# 		isRecieve = True
+
 class VentanaPrincipal(QMainWindow):
 	def __init__(self):
 		super(VentanaPrincipal,self).__init__()
@@ -61,16 +72,15 @@ class VentanaPrincipal(QMainWindow):
 			print("Error de conexion con el puerto")
 
 		
-		thread = Thread(target = getData,args=(serial_connection))
-		thread.start()
-
-		while isRecieve !=True:
-			print("Starting receiving data",isRecieve)
-			time.sleep(0.1)
+		# threading.Thread(target = getData,args=(serial_connection)).start()
+		
+		# while isRecieve !=True:
+		# 	print("Starting receiving data",isRecieve)
+		# 	time.sleep(0.1)
 
 		self.gfc_presion = GraficaPresion()
 		self.gfc_altura = GraficaAltura()
-		self.gfc_temperatura = GraficaTemperatura()
+		self.gfc_temperatura = GraficaTemperatura(serial_connection)
 		self.gfc_aceleracion_subida = GraficaAceleracionSubida()
 		self.gfc_aceleracion_caida = GraficaAceleracionCaida()
 		self.gfc_angulo = GraficaAngulo()
@@ -81,6 +91,7 @@ class VentanaPrincipal(QMainWindow):
 		self.aceleracion_subida.addWidget(self.gfc_aceleracion_subida)
 		self.aceleracion_caida.addWidget(self.gfc_aceleracion_caida)
 		self.angulo.addWidget(self.gfc_angulo)
+
 	def control_bt_minimizar(self):
 		self.showMinimized()		
 
@@ -129,18 +140,11 @@ class VentanaPrincipal(QMainWindow):
 			self.showNormal()
 			self.bt_restaurar.hide()
 			self.bt_maximizar.show()
-	def plotData(self,data,samples,lines,line_value_text,line_label):
+	def plotData(self,serial_connection,data,samples,lines,line_value_text,line_label):
+		value = float(serial_connection.readline().strip())
 		data.append(value)
 		lines.set_data(range(samples), data)
 		line_value_text.set_text(line_label+' = '+ str(round(value,2)))
-def getData(serial_connection):
-	time.sleep(1.0)
-	while (isRun):
-		global isRecieve
-		global value
-		value = float(serial_connection.readline().strip())
-		print(value)
-		isRecieve = True
 
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
