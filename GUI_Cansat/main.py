@@ -20,11 +20,6 @@ from grafica_Temperatura import *
 isRecieve = False
 isRun = True
 value = 0.0
-serial_connection = serial.Serial('COM3',9600)
-if not serial_connection.isOpen():
-    serial_connection.open()
-print('com3 is open', serial_connection.isOpen())
-
 class VentanaPrincipal(QMainWindow):
 	def __init__(self):
 		super(VentanaPrincipal,self).__init__()
@@ -37,7 +32,7 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_minimizar.clicked.connect(self.control_bt_minimizar)		
 		self.bt_restaurar.clicked.connect(self.control_bt_normal)
 		self.bt_maximizar.clicked.connect(self.control_bt_maximizar)
-		self.bt_cerrar.clicked.connect(lambda: self.close() and self.serial.close())
+		self.bt_cerrar.clicked.connect(lambda: self.close() and serial.Serial.close())
 
 		#eliminar barra y de titulo - opacidad
 		self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -57,28 +52,28 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
 		
-		# serial_port = 'COM3'
-		# baud_rate = 9600
-		# try:
-		# 	self.serial_connection = serial.Serial(serial_port, baud_rate)
-		# except:
-		# 	print("Error de coneccion con el puerto")
+		serial_port = 'COM3'
+		baud_rate = 9600
+		try:
+			serial_connection = serial.Serial(serial_port, baud_rate)
+			print("conexion con el puerto")
+		except:
+			print("Error de conexion con el puerto")
 
 		
-		thread = Thread(target = getData)
+		thread = Thread(target = getData,args=(serial_connection))
 		thread.start()
 
-		while isRecieve != True:
-			print("Starting receive data")
+		while isRecieve !=True:
+			print("Starting receiving data",isRecieve)
 			time.sleep(0.1)
-		
+
 		self.gfc_presion = GraficaPresion()
 		self.gfc_altura = GraficaAltura()
 		self.gfc_temperatura = GraficaTemperatura()
 		self.gfc_aceleracion_subida = GraficaAceleracionSubida()
 		self.gfc_aceleracion_caida = GraficaAceleracionCaida()
 		self.gfc_angulo = GraficaAngulo()
-		
 
 		self.presion.addWidget(self.gfc_presion)
 		self.altura.addWidget(self.gfc_altura)	
@@ -86,14 +81,6 @@ class VentanaPrincipal(QMainWindow):
 		self.aceleracion_subida.addWidget(self.gfc_aceleracion_subida)
 		self.aceleracion_caida.addWidget(self.gfc_aceleracion_caida)
 		self.angulo.addWidget(self.gfc_angulo)
-		VentanaPrincipal.show()
-		self.isRun=False
-		thread.join()
-		self.serial_connection.close()
-	def plotData(self,data,samples,lines,line_value_text,line_label):
-		data.append(value)
-		lines.set_data(range(samples), data)
-		line_value_text.set_text(line_label+' = '+ str(round(value,2)))
 	def control_bt_minimizar(self):
 		self.showMinimized()		
 
@@ -142,15 +129,23 @@ class VentanaPrincipal(QMainWindow):
 			self.showNormal()
 			self.bt_restaurar.hide()
 			self.bt_maximizar.show()
-def getData():
+	def plotData(self,data,samples,lines,line_value_text,line_label):
+		data.append(value)
+		lines.set_data(range(samples), data)
+		line_value_text.set_text(line_label+' = '+ str(round(value,2)))
+def getData(serial_connection):
 	time.sleep(1.0)
 	while (isRun):
 		global isRecieve
 		global value
-		value = float(serial_connection.readline())
+		value = float(serial_connection.readline().strip())
+		print(value)
 		isRecieve = True
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    VentanaPrincipal()
-    sys.exit(app.exec_())	
+	app = QApplication(sys.argv)
+	my_app= VentanaPrincipal()
+	print('Salí de la ventana principal')
+	my_app.show()
+	isRun=False
+	sys.exit(app.exec_())	
