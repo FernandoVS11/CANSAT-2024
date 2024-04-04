@@ -1,13 +1,12 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
-import sys,serial, time
-import threading 
+import sys
+from pyqtgraph.widgets.MatplotlibWidget import MatplotlibWidget
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtCore import QPropertyAnimation
+from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
+from PyQt5.QtCore import QPropertyAnimation, QIODevice
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.uic import loadUi
-
-
 from imagenes import logo
 
 from grafica_Aceleracion_Caida import *
@@ -15,21 +14,7 @@ from grafica_Aceleracion_Subida import *
 from grafica_Altura import *
 from grafica_Angulo import *
 from grafica_Presion import *
-from grafica_Temperatura import *
-
-isRecieve = False
-isRun = True
-value = 0.0
-
-# def getData(serial_connection):
-# 	print("Entre")
-# 	time.sleep(1.0)
-# 	while (isRun):
-# 		global isRecieve
-# 		global value
-# 		value = float(serial_connection.readline().strip())
-# 		print(value)
-# 		isRecieve = True
+import pyqtgraph as pg
 
 class VentanaPrincipal(QMainWindow):
 	def __init__(self):
@@ -43,7 +28,7 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_minimizar.clicked.connect(self.control_bt_minimizar)		
 		self.bt_restaurar.clicked.connect(self.control_bt_normal)
 		self.bt_maximizar.clicked.connect(self.control_bt_maximizar)
-		self.bt_cerrar.clicked.connect(lambda: self.close() and serial.Serial.close())
+		self.bt_cerrar.clicked.connect(lambda: self.close())
 
 		#eliminar barra y de titulo - opacidad
 		self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -63,24 +48,27 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
 		
-		serial_port = 'COM3'
-		baud_rate = 9600
-		try:
-			serial_connection = serial.Serial(serial_port, baud_rate)
-			print("conexion con el puerto")
-		except:
-			print("Error de conexion con el puerto")
+		self.serial = QSerialPort()
+		self.serial_port = 'COM3'
+		self.baud_rate = 9600
 
-		
-		# threading.Thread(target = getData,args=(serial_connection)).start()
-		
-		# while isRecieve !=True:
-		# 	print("Starting receiving data",isRecieve)
-		# 	time.sleep(0.1)
+		self.serial.waitForReadyRead(100)
+		self.serial.setBaudRate(self.baud_rate)
+		self.serial.setPortName(self.serial_port)
+		self.serial.open(QIODevice.ReadOnly)
+		print("conexion con el puerto")
+
+		self.serial.readyRead.connect(self.read_data)
+		self.x = list(np.linspace(0,100,100))
+		self.y = list(np.linspace(0,0,100))
+		self.z = list(np.linspace(0,0,100))
+
+		self.gfc_temperatura = MatplotlibWidget()
+		# self.gfc_temperatura.set_ylabel("temp")
+		# self.gfc_temperatura.set_xlabel("tiempo")
 
 		self.gfc_presion = GraficaPresion()
 		self.gfc_altura = GraficaAltura()
-		self.gfc_temperatura = GraficaTemperatura(serial_connection)
 		self.gfc_aceleracion_subida = GraficaAceleracionSubida()
 		self.gfc_aceleracion_caida = GraficaAceleracionCaida()
 		self.gfc_angulo = GraficaAngulo()
@@ -140,11 +128,16 @@ class VentanaPrincipal(QMainWindow):
 			self.showNormal()
 			self.bt_restaurar.hide()
 			self.bt_maximizar.show()
-	def plotData(self,serial_connection,data,samples,lines,line_value_text,line_label):
-		value = float(serial_connection.readline().strip())
-		data.append(value)
-		lines.set_data(range(samples), data)
-		line_value_text.set_text(line_label+' = '+ str(round(value,2)))
+	def read_data(self):
+		if not self.serial.canReadLine():return
+		rx = self.serial.readLine()
+		x = str(rx,'utf-8').strip()
+		data_from_arduino = float(x)
+		print(data_from_arduino)
+		self.y = self.y[1:]
+		self.y.append(data_from_arduino)
+		self.gfc_temperatura.clear()
+		self.gfc_temperatura.plot(self.x,self.y, color='red')
 
 if __name__ == "__main__":
 	app = QApplication(sys.argv)

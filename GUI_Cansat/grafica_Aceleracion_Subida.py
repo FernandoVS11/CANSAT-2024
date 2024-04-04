@@ -11,7 +11,6 @@ class GraficaAceleracionSubida(FigureCanvas):
 		x_data= 10
 		y_data= 10
 		z_data= 10
-
 		self.ax.plot(x_data, y_data, z_data)
 		self.ax.set_title("Aceleracion")
 		self.ax.set_xlabel("m/s")
