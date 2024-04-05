@@ -104,7 +104,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>../../../Descargas2/GUI CANSAT/barra-de-menus.png</normaloff>../../../Descargas2/GUI CANSAT/barra-de-menus.png</iconset>
+              <normaloff>imagenes/barra-de-menus.png</normaloff>imagenes/barra-de-menus.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -134,7 +134,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>../../../Descargas2/GUI CANSAT/minimizar.png</normaloff>../../../Descargas2/GUI CANSAT/minimizar.png</iconset>
+              <normaloff>imagenes/minimizar.png</normaloff>imagenes/minimizar.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -151,7 +151,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>../../../Descargas2/GUI CANSAT/restaurar.png</normaloff>../../../Descargas2/GUI CANSAT/restaurar.png</iconset>
+              <normaloff>imagenes/restaurar.png</normaloff>imagenes/restaurar.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -168,7 +168,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>../../../Descargas2/GUI CANSAT/maximizar.png</normaloff>../../../Descargas2/GUI CANSAT/maximizar.png</iconset>
+              <normaloff>imagenes/maximizar.png</normaloff>imagenes/maximizar.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -185,7 +185,7 @@ border-radius:20px;
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>../../../Descargas2/GUI CANSAT/cerrar.png</normaloff>../../../Descargas2/GUI CANSAT/cerrar.png</iconset>
+              <normaloff>imagenes/cerrar.png</normaloff>imagenes/cerrar.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -276,7 +276,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>../../../Descargas2/GUI CANSAT/chip.png</normaloff>../../../Descargas2/GUI CANSAT/chip.png</iconset>
+                 <normaloff>imagenes/chip.png</normaloff>imagenes/chip.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -326,7 +326,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>../../../Descargas2/GUI CANSAT/chip.png</normaloff>../../../Descargas2/GUI CANSAT/chip.png</iconset>
+                 <normaloff>imagenes/chip.png</normaloff>imagenes/chip.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -349,7 +349,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>../../../Descargas2/GUI CANSAT/chip.png</normaloff>../../../Descargas2/GUI CANSAT/chip.png</iconset>
+                 <normaloff>imagenes/chip.png</normaloff>imagenes/chip.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -372,7 +372,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>../../../Descargas2/GUI CANSAT/chip.png</normaloff>../../../Descargas2/GUI CANSAT/chip.png</iconset>
+                 <normaloff>imagenes/chip.png</normaloff>imagenes/chip.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
