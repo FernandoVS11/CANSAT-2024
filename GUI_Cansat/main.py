@@ -49,7 +49,6 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasB.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina2))
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
-		
 		self.serial = QSerialPort()
 		self.serial_port = 'COM3'
 		self.baud_rate = 9600
@@ -133,6 +132,25 @@ class VentanaPrincipal(QMainWindow):
 		x = str(rx,'utf-8').strip()
 		data_from_arduino = float(x)
 		print(data_from_arduino)
+
+		self.presion_label.setText(str(data_from_arduino)+' pa')
+		self.altura_label.setText(str(data_from_arduino)+' m')
+		self.roll_label.setText(str(data_from_arduino)+'°')
+		self.pitch_label.setText(str(data_from_arduino)+'°')
+		self.yaw_label.setText(str(data_from_arduino)+'°')
+		self.temperatura_label.setText(str(data_from_arduino)+'°C')
+		self.y_coord_label_subida.setText(str(data_from_arduino)+'m/s^2')
+		self.z_coord_label_subida.setText(str(data_from_arduino)+'m/s^2')
+		self.x_coord_label_caida.setText(str(data_from_arduino)+'m/s^2')
+		self.y_coord_label_caida.setText(str(data_from_arduino)+'m/s^2')
+		self.z_coord_label_caida.setText(str(data_from_arduino)+'m/s^2')
+		self.altura_max_label.setText(str(data_from_arduino)+' m')
+		self.x_coord_label.setText(str(data_from_arduino)+'m/s^2')
+		self.y_coord_label.setText(str(data_from_arduino)+'m/s^2')
+		self.z_coord_label.setText(str(data_from_arduino)+'m/s^2')
+		self.vel_max_label.setText(str(data_from_arduino)+' m/s')
+		self.distancia_label.setText(str(data_from_arduino)+' m/s')
+		
 		self.y = self.y[1:]
 		self.y.append(data_from_arduino)
 		lines_angulo = [self.y,self.y,self.y]

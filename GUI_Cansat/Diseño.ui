@@ -424,7 +424,7 @@ border: 0px solid #14C8DC;
 </string>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>3</number>
                </property>
                <widget class="QWidget" name="pagina1">
                 <layout class="QGridLayout" name="gridLayout_2">
@@ -897,7 +897,7 @@ font: 87 16pt &quot;Arial Black&quot;;</string>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_13">
                     <item row="5" column="1" colspan="2" alignment="Qt::AlignLeft">
-                     <widget class="QLabel" name="y_coord_label_3">
+                     <widget class="QLabel" name="y_coord_label_caida">
                       <property name="styleSheet">
                        <string notr="true">background-color: rgb(255, 255, 255);
 border: 4px solid;
@@ -930,7 +930,7 @@ border-color: rgb(0, 0, 0);</string>
                      </widget>
                     </item>
                     <item row="4" column="1">
-                     <widget class="QLabel" name="x_coord_label_3">
+                     <widget class="QLabel" name="x_coord_label_caida">
                       <property name="styleSheet">
                        <string notr="true">background-color: rgb(255, 255, 255);
 border: 4px solid;
@@ -952,7 +952,7 @@ border-color: rgb(0, 0, 0);</string>
                      </widget>
                     </item>
                     <item row="6" column="1">
-                     <widget class="QLabel" name="z_coord_label_3">
+                     <widget class="QLabel" name="z_coord_label_caida">
                       <property name="styleSheet">
                        <string notr="true">background-color: rgb(255, 255, 255);
 border: 4px solid;
@@ -1008,7 +1008,7 @@ font: 87 16pt &quot;Arial Black&quot;;
                      </widget>
                     </item>
                     <item row="3" column="1" alignment="Qt::AlignLeft">
-                     <widget class="QLabel" name="x_coord_label_2">
+                     <widget class="QLabel" name="x_coord_label_subida">
                       <property name="styleSheet">
                        <string notr="true">background-color: rgb(255, 255, 255);
 border: 4px solid;
@@ -1034,7 +1034,7 @@ border-color: rgb(0, 0, 0);</string>
                      </widget>
                     </item>
                     <item row="7" column="1" alignment="Qt::AlignLeft">
-                     <widget class="QLabel" name="z_coord_label_2">
+                     <widget class="QLabel" name="z_coord_label_subida">
                       <property name="styleSheet">
                        <string notr="true">background-color: rgb(255, 255, 255);
 border: 4px solid;
@@ -1046,7 +1046,7 @@ border-color: rgb(0, 0, 0);</string>
                      </widget>
                     </item>
                     <item row="5" column="1" alignment="Qt::AlignLeft">
-                     <widget class="QLabel" name="y_coord_label_2">
+                     <widget class="QLabel" name="y_coord_label_subida">
                       <property name="styleSheet">
                        <string notr="true">background-color: rgb(255, 255, 255);
 border: 4px solid;
@@ -1433,7 +1433,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
   </widget>
  </widget>
  <resources>
-  <include location="../../../Descargas2/gui-python-pyqt5-main/GUI_Cansat/imagenes/logo.qrc"/>
+  <include location="imagenes/logo.qrc"/>
  </resources>
  <connections/>
 </ui>
