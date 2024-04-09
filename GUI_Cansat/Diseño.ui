@@ -1108,21 +1108,7 @@ font: 87 16pt &quot;Arial Black&quot;;
                     <item row="1" column="0" alignment="Qt::AlignRight">
                      <widget class="QLabel" name="label_34">
                       <property name="text">
-                       <string>X:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="0" alignment="Qt::AlignRight">
-                     <widget class="QLabel" name="label_36">
-                      <property name="text">
-                       <string>Z:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="0" alignment="Qt::AlignRight">
-                     <widget class="QLabel" name="label_35">
-                      <property name="text">
-                       <string>Y:</string>
+                       <string>latitud:</string>
                       </property>
                      </widget>
                     </item>
@@ -1136,15 +1122,10 @@ font: 87 16pt &quot;Arial Black&quot;;
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="1" colspan="2" alignment="Qt::AlignHCenter">
-                     <widget class="QLabel" name="x_coord_label">
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(255, 255, 255);
-border: 4px solid;
-border-color: rgb(0, 0, 0);</string>
-                      </property>
+                    <item row="2" column="0" alignment="Qt::AlignRight">
+                     <widget class="QLabel" name="label_35">
                       <property name="text">
-                       <string>40°</string>
+                       <string>longitud:</string>
                       </property>
                      </widget>
                     </item>
@@ -1160,15 +1141,15 @@ border-color: rgb(0, 0, 0);</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="3" column="1" colspan="2" alignment="Qt::AlignHCenter">
-                     <widget class="QLabel" name="z_coord_label">
+                    <item row="1" column="1" colspan="2" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="x_coord_label">
                       <property name="styleSheet">
                        <string notr="true">background-color: rgb(255, 255, 255);
 border: 4px solid;
 border-color: rgb(0, 0, 0);</string>
                       </property>
                       <property name="text">
-                       <string>60°</string>
+                       <string>40°</string>
                       </property>
                      </widget>
                     </item>

@@ -1,6 +1,6 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
-import sys
+import sys, time
 import numpy as np
 import pyqtgraph.opengl as gl
 from pyqtgraph.widgets.MatplotlibWidget import MatplotlibWidget
@@ -18,7 +18,15 @@ from grafica_Angulo import *
 from grafica_Presion import *
 import pyqtgraph as pg
 
+tiempo_inicio = time.time()
 class VentanaPrincipal(QMainWindow):
+	velocidad_si ='m/s'
+	aceleracion_si ='m/s^2'
+	presion= 'pa'
+	grados_si='°'
+	distancia_si='m'
+	temperatura_si ='°C'
+	radio_tierra= 6378
 	def __init__(self):
 		super(VentanaPrincipal,self).__init__()
 		loadUi('Diseño.ui',self)
@@ -50,14 +58,18 @@ class VentanaPrincipal(QMainWindow):
 		self.bt_GraficasC.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina3))	
 		self.bt_GraficasD.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.pagina4))
 		self.serial = QSerialPort()
-		self.serial_port = 'COM3'
+		self.serial_port = 'COM4'
 		self.baud_rate = 9600
 
 		self.serial.waitForReadyRead(100)
 		self.serial.setBaudRate(self.baud_rate)
 		self.serial.setPortName(self.serial_port)
-		self.serial.open(QIODevice.ReadOnly)
-		print("conexion con el puerto")
+		
+		try:
+			self.serial.open(QIODevice.ReadOnly)
+			print('conexion')
+		except:
+			print('no entra')
 
 		self.serial.readyRead.connect(self.read_data)
 		self.x = list(np.linspace(0,100,100))
@@ -127,33 +139,44 @@ class VentanaPrincipal(QMainWindow):
 			self.bt_restaurar.hide()
 			self.bt_maximizar.show()
 	def read_data(self):
-		if not self.serial.canReadLine():return
+		if not self.serial.canReadLine():return 'No entre al read data'
 		rx = self.serial.readLine()
-		x = str(rx,'utf-8').strip()
-		data_from_arduino = float(x)
-		print(data_from_arduino)
-
-		self.presion_label.setText(str(data_from_arduino)+' pa')
-		self.altura_label.setText(str(data_from_arduino)+' m')
-		self.roll_label.setText(str(data_from_arduino)+'°')
-		self.pitch_label.setText(str(data_from_arduino)+'°')
-		self.yaw_label.setText(str(data_from_arduino)+'°')
-		self.temperatura_label.setText(str(data_from_arduino)+'°C')
-		self.y_coord_label_subida.setText(str(data_from_arduino)+'m/s^2')
-		self.z_coord_label_subida.setText(str(data_from_arduino)+'m/s^2')
-		self.x_coord_label_caida.setText(str(data_from_arduino)+'m/s^2')
-		self.y_coord_label_caida.setText(str(data_from_arduino)+'m/s^2')
-		self.z_coord_label_caida.setText(str(data_from_arduino)+'m/s^2')
-		self.altura_max_label.setText(str(data_from_arduino)+' m')
-		self.x_coord_label.setText(str(data_from_arduino)+'m/s^2')
-		self.y_coord_label.setText(str(data_from_arduino)+'m/s^2')
-		self.z_coord_label.setText(str(data_from_arduino)+'m/s^2')
-		self.vel_max_label.setText(str(data_from_arduino)+' m/s')
-		self.distancia_label.setText(str(data_from_arduino)+' m/s')
+		print(str(rx,'utf-8').strip())
+		x = str(rx,'utf-8').strip().split(',')
+		data_from_arduino = []
+		for data in x:
+			if data == '0.000000\x00':
+				data_from_arduino.append(0.000000)
+			else:
+				data_from_arduino.append(float(data))
+			print(data)
+	
+		self.x_coord_label_subida.setText(str(data_from_arduino[0])+self.aceleracion_si )
+		self.y_coord_label_subida.setText(str(data_from_arduino[1])+self.aceleracion_si )
+		self.z_coord_label_subida.setText(str(data_from_arduino[2])+self.aceleracion_si )
+		self.x_coord_label_caida.setText(str(data_from_arduino[0])+self.aceleracion_si )
+		self.y_coord_label_caida.setText(str(data_from_arduino[1])+self.aceleracion_si )
+		self.z_coord_label_caida.setText(str(data_from_arduino[2])+self.aceleracion_si )
+		self.x_coord_label.setText(str(data_from_arduino[9]))
+		self.y_coord_label.setText(str(data_from_arduino[10]))
+		self.yaw_label.setText(str(data_from_arduino[3])+self.grados_si)
+		self.pitch_label.setText(str(data_from_arduino[4])+self.grados_si)
+		self.roll_label.setText(str(data_from_arduino[5])+self.grados_si)
+		self.temperatura_label.setText(str(data_from_arduino[6])+self.temperatura_si)
+		self.presion_label.setText(str(data_from_arduino[7])+self.presion)
+		self.altura_label.setText(str(data_from_arduino[8])+self.distancia_si)
+		self.altura_max_label.setText(str(data_from_arduino[8])+self.distancia_si)
+		global tiempo_inicio
+		tiempo_trasncurrido = time.time() - tiempo_inicio
+		velocidad_maxima = data_from_arduino[8]/tiempo_trasncurrido
+		self.vel_max_label.setText(str(velocidad_maxima)+self.velocidad_si)
+		distancia = self.radio_tierra * np.arccos(np.sin(data_from_arduino[9])*np.sin(data_from_arduino[9])
+											+(np.abs(data_from_arduino[10]+data_from_arduino[10])
+											*np.cos(data_from_arduino[10])*np.cos(data_from_arduino[10])))
+		self.distancia_label.setText(distancia+self.distancia_si)
 		
 		self.y = self.y[1:]
 		self.y.append(data_from_arduino)
-		lines_angulo = [self.y,self.y,self.y]
 
 		self.gfc_temperatura.clear()
 		self.gfc_temperatura.plot(self.x,self.y, color='red')
