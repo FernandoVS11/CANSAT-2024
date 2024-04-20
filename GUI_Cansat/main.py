@@ -240,38 +240,18 @@ class VentanaPrincipal(QMainWindow):
 		self.gfc_angulo.plot(self.x, self.pitch, pen='g', name='Pitch')
 		self.gfc_angulo.plot(self.x, self.roll, pen='b', name='Roll')
 
-		axis_x = gl.GLLinePlotItem(pos=np.array([[0, 0, 0], [100, 0, 0]]), color=(1.0, 0.0, 0.0, 1.0), width=3)
-		axis_y = gl.GLLinePlotItem(pos=np.array([[0, 0, 0], [0, 100, 0]]), color=(0.0, 1.0, 0.0, 1.0), width=3)
-		axis_z = gl.GLLinePlotItem(pos=np.array([[0, 0, 0], [0, 0, 100]]), color=(0.0, 0.0, 1.0, 1.0), width=3)
-		self.gfc_aceleracion_subida.addItem(axis_x)
-		self.gfc_aceleracion_subida.addItem(axis_y)
-		self.gfc_aceleracion_subida.addItem(axis_z)
-        
-        # Creamos datos de ejemplo para la línea 3D
-		x = list(np.linspace(0,0,100))
-		y = list(np.linspace(0,0,100))
-		z = self.aceleracion_z
-        
-        # Añadimos la línea a la visualización 3D
-		self.line_plot = gl.GLLinePlotItem(pos=np.column_stack((x, y, z)), color=(1.0, 1.0, 1.0, 1.0), width=3)
-		self.gfc_aceleracion_subida.addItem(self.line_plot)
-		
-		axis_x2 = gl.GLLinePlotItem(pos=np.array([[0, 0, 0], [100, 0, 0]]), color=(1.0, 0.0, 0.0, 1.0), width=3)
-		axis_y2 = gl.GLLinePlotItem(pos=np.array([[0, 0, 0], [0, 100, 0]]), color=(0.0, 1.0, 0.0, 1.0), width=3)
-		axis_z2 = gl.GLLinePlotItem(pos=np.array([[0, 0, 0], [0, 0, 100]]), color=(0.0, 0.0, 1.0, 1.0), width=3)
-		
-		self.gfc_aceleracion_caida.addItem(axis_x2)
-		self.gfc_aceleracion_caida.addItem(axis_y2)
-		self.gfc_aceleracion_caida.addItem(axis_z2)
-        
-        # Creamos datos de ejemplo para la línea 3D
-		x = self.aceleracion_x
-		y = self.aceleracion_y
-		z = self.aceleracion_z
-        
-        # Añadimos la línea a la visualización 3D
-		self.line_plot = gl.GLLinePlotItem(pos=np.column_stack((x, y, z)), color=(1.0, 1.0, 1.0, 1.0), width=3)
-		self.gfc_aceleracion_caida.addItem(self.line_plot)
+		self.gfc_aceleracion_subida.clear()
+		self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_x, pen='r', name='x')
+		self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_y, pen='g', name='y')
+		self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_z, pen='b', name='z')
+
+		self.gfc_aceleracion_caida.clear()
+		self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_x, pen='r', name='x')
+		self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_y, pen='g', name='y')
+		self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_z, pen='b', name='z')
+
+
+
 
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
