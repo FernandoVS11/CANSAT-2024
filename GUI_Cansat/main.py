@@ -94,8 +94,8 @@ class VentanaPrincipal(QMainWindow):
 		self.gfc_presion = pg.PlotWidget(title='Presión')
 		self.gfc_altura = pg.PlotWidget(title='Altura')
 		self.gfc_angulo = pg.PlotWidget(title='Ángulo')
-		self.gfc_aceleracion_subida = gl.GLViewWidget()
-		self.gfc_aceleracion_caida = gl.GLViewWidget()
+		self.gfc_aceleracion_subida = pg.PlotWidget(title='Aceleración Subida')
+		self.gfc_aceleracion_caida = pg.PlotWidget(title='Aceleración Caída')
 
 		self.presion.addWidget(self.gfc_presion)
 		self.altura.addWidget(self.gfc_altura)	
@@ -211,6 +211,7 @@ class VentanaPrincipal(QMainWindow):
 		self.aceleracion_z = self.aceleracion_z[1:]
 		self.latitud = self.latitud[1:]
 		self.longitud = self.longitud[1:]
+		self.x = self.x[1:]
 
 		self.altura_data.append(self.dato_arduino_estatico[8])
 		self.presion_data.append(self.dato_arduino_estatico[7])
@@ -223,6 +224,7 @@ class VentanaPrincipal(QMainWindow):
 		self.aceleracion_z.append(self.dato_arduino_estatico[2])
 		self.latitud.append(self.dato_arduino_estatico[9])
 		self.longitud.append(self.dato_arduino_estatico[10])
+		self.x.append(int(time.time()-tiempo_inicio))
 
 		self.gfc_temperatura.clear()
 		self.gfc_temperatura.plot(self.x,self.temperatura_data, color='red')
@@ -259,4 +261,4 @@ if __name__ == "__main__":
 	print('Salí de la ventana principal')
 	my_app.show()
 	isRun=False
-	sys.exit(app.exec_())	
+	sys.exit(app.exec_())

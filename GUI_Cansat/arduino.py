@@ -1,11 +1,25 @@
-import  serial,time
+float lectura;
+float voltaje;
 
-try:
-    ard = serial.Serial("COM3", 9600)     
-    datos =ard.readline()
-    while 1:
-        print(datos.decode('utf-8'))
-        time.sleep(1)     
-except:
-    print("Error de coneccion con el puerto")
-    raise
+void setup() {
+  
+  Serial.begin(9600);
+  pinMode(A0,INPUT);
+}
+
+void loop() {
+  lectura = analogRead(A0);
+  voltaje = ((lectura/1023)*5.5);
+  
+  for (int i = 0; i < 10; i++) {
+    Serial.print(voltaje);
+    if(i != 9){
+      Serial.print(",");
+    }
+  }
+
+  
+  Serial.println("");
+
+  delay(200);
+}
