@@ -11,11 +11,6 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.uic import loadUi
 from imagenes import logo
 
-from grafica_Aceleracion_Caida import *
-from grafica_Aceleracion_Subida import *
-from grafica_Altura import *
-from grafica_Angulo import *
-from grafica_Presion import *
 import pyqtgraph as pg
 
 tiempo_inicio = time.time()
@@ -75,7 +70,7 @@ class VentanaPrincipal(QMainWindow):
 
 		self.serial.readyRead.connect(self.read_data)
 		
-		self.x = list(np.linspace(0,100,100))
+		self.x = list(np.linspace(0,0,100))
 		self.altura_data = list(np.linspace(0,0,100))
 		self.presion_data = list(np.linspace(0,0,100))
 		self.temperatura_data = list(np.linspace(0,0,100))
@@ -169,14 +164,22 @@ class VentanaPrincipal(QMainWindow):
 			#data_from_arduino_antena_2.append(2)
 			#data_from_arduino_antena_2.append(10)	
 			self.dato_arduino_estatico = data_from_arduino
-	
-	
-		self.x_coord_label_subida.setText(str(self.dato_arduino_estatico[0])+self.aceleracion_si )
-		self.y_coord_label_subida.setText(str(self.dato_arduino_estatico[1])+self.aceleracion_si )
-		self.z_coord_label_subida.setText(str(self.dato_arduino_estatico[2])+self.aceleracion_si )
-		self.x_coord_label_caida.setText(str(self.dato_arduino_estatico[0])+self.aceleracion_si )
-		self.y_coord_label_caida.setText(str(self.dato_arduino_estatico[1])+self.aceleracion_si )
-		self.z_coord_label_caida.setText(str(self.dato_arduino_estatico[2])+self.aceleracion_si )
+		#self.dato_arduino_estatico[2] = 0
+		if self.dato_arduino_estatico[2] > 3:
+			self.x_coord_label_subida.setText("0"+self.aceleracion_si )
+			self.y_coord_label_subida.setText("0"+self.aceleracion_si )
+			self.z_coord_label_subida.setText("0"+self.aceleracion_si )
+			self.x_coord_label_caida.setText(str(self.dato_arduino_estatico[0])+self.aceleracion_si )
+			self.y_coord_label_caida.setText(str(self.dato_arduino_estatico[1])+self.aceleracion_si )
+			self.z_coord_label_caida.setText(str(self.dato_arduino_estatico[2])+self.aceleracion_si )
+		else:
+			self.x_coord_label_subida.setText(str(self.dato_arduino_estatico[0])+self.aceleracion_si )
+			self.y_coord_label_subida.setText(str(self.dato_arduino_estatico[1])+self.aceleracion_si )
+			self.z_coord_label_subida.setText(str(self.dato_arduino_estatico[2])+self.aceleracion_si )
+			self.x_coord_label_caida.setText("0"+self.aceleracion_si )
+			self.y_coord_label_caida.setText("0"+self.aceleracion_si )
+			self.z_coord_label_caida.setText("0"+self.aceleracion_si )		
+
 		self.x_coord_label.setText(str(self.dato_arduino_estatico[9]))
 		self.y_coord_label.setText(str(self.dato_arduino_estatico[10]))
 		self.yaw_label.setText(str(self.dato_arduino_estatico[3])+self.grados_si)
@@ -242,15 +245,35 @@ class VentanaPrincipal(QMainWindow):
 		self.gfc_angulo.plot(self.x, self.pitch, pen='g', name='Pitch')
 		self.gfc_angulo.plot(self.x, self.roll, pen='b', name='Roll')
 
-		self.gfc_aceleracion_subida.clear()
-		self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_x, pen='r', name='x')
-		self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_y, pen='g', name='y')
-		self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_z, pen='b', name='z')
+		if self.dato_arduino_estatico[2] < 3:
+			self.aceleracion_x_subida = list(np.linspace(0,0,100))
+			self.aceleracion_y_subida = list(np.linspace(0,0,100))
+			self.aceleracion_z_subida = list(np.linspace(0,0,100))
+			self.gfc_aceleracion_subida.clear()
+			self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_x_subida, pen='r', name='x')
+			self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_y_subida, pen='g', name='y')
+			self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_z_subida, pen='b', name='z')
+		else:
+			self.gfc_aceleracion_subida.clear()
+			self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_x, pen='r', name='x')
+			self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_y, pen='g', name='y')
+			self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_z, pen='b', name='z')
 
-		self.gfc_aceleracion_caida.clear()
-		self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_x, pen='r', name='x')
-		self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_y, pen='g', name='y')
-		self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_z, pen='b', name='z')
+
+
+		if self.dato_arduino_estatico[2] < 3:
+			self.gfc_aceleracion_caida.clear()
+			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_x, pen='r', name='x')
+			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_y, pen='g', name='y')
+			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_z, pen='b', name='z')
+		else:
+			self.aceleracion_x_caida = list(np.linspace(0,0,100))
+			self.aceleracion_y_caida = list(np.linspace(0,0,100))
+			self.aceleracion_z_caida = list(np.linspace(0,0,100))
+			self.gfc_aceleracion_caida.clear()
+			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_x_caida, pen='r', name='x')
+			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_y_caida, pen='g', name='y')
+			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_z_caida, pen='b', name='z')
 
 
 
