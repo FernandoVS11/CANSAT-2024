@@ -131,7 +131,7 @@ class VentanaPrincipal(QMainWindow):
 		width = self.frame_control.width()
 		normal = 0
 		if width==0:
-			extender = 200
+			extender = 250
 		else:
 			extender = normal
 		self.animacion = QPropertyAnimation(self.frame_control, b'minimumWidth')
