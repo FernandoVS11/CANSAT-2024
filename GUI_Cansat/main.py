@@ -27,6 +27,7 @@ class VentanaPrincipal(QMainWindow):
 	datos_arduino_estatico_antena_2 = []
 	velocidad_maxima = 0
 	altura_maxima = 0
+	altura_anterior = 0
 	def __init__(self):
 		super(VentanaPrincipal,self).__init__()
 		loadUi('Diseño.ui',self)
@@ -65,6 +66,7 @@ class VentanaPrincipal(QMainWindow):
 		self.grip.resize(self.gripSize, self.gripSize)
 		
 		self.frame_superior.mouseMoveEvent = self.mover_ventana
+	
 	def crear_gráficas(self):
 		self.gfc_temperatura = pg.PlotWidget(title='Temperatura')
 		self.gfc_presion = pg.PlotWidget(title='Presión')
@@ -191,6 +193,8 @@ class VentanaPrincipal(QMainWindow):
 		self.asignar_datos_arduino_a_graficas()
 
 		self.guardar_datos_en_csv()
+		
+		self.altura_anterior = self.datos_arduino_estatico_antena_1[8]
 
 	def asignar_texto_a_etiquetas(self):
 		self.asignar_texto_a_etiquetas_aceleracion_segun_estado()
@@ -288,7 +292,7 @@ class VentanaPrincipal(QMainWindow):
 		self.asignar_datos_arduino_a_grafica_aceleracion_segun_aceleracion_z()
 
 	def asignar_datos_arduino_a_grafica_aceleracion_segun_aceleracion_z(self):
-		if self.datos_arduino_estatico_antena_1[2] < 3:
+		if (self.altura_anterior - self.datos_arduino_estatico_antena_1[8]) < 0:
 			self.aceleracion_x_subida = list(np.linspace(0,0,100))
 			self.aceleracion_y_subida = list(np.linspace(0,0,100))
 			self.aceleracion_z_subida = list(np.linspace(0,0,100))
@@ -302,7 +306,7 @@ class VentanaPrincipal(QMainWindow):
 			self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_y, pen='g', name='y')
 			self.gfc_aceleracion_subida.plot(self.x, self.aceleracion_z, pen='b', name='z')
 
-		if self.datos_arduino_estatico_antena_1[2] < 3:
+		if (self.altura_anterior - self.datos_arduino_estatico_antena_1[8]) > 0:
 			self.gfc_aceleracion_caida.clear()
 			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_x, pen='r', name='x')
 			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_y, pen='g', name='y')
@@ -315,6 +319,7 @@ class VentanaPrincipal(QMainWindow):
 			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_x_caida, pen='r', name='x')
 			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_y_caida, pen='g', name='y')
 			self.gfc_aceleracion_caida.plot(self.x, self.aceleracion_z_caida, pen='b', name='z')
+
 	def guardar_datos_en_csv(self):
 		if not os.path.exists("datos.csv"):
 			df = pd.DataFrame(columns=['Aceleracion_X', 'Aceleracion_Y', 'Aceleracion_Z',
@@ -340,6 +345,7 @@ class VentanaPrincipal(QMainWindow):
 									  'Yaw', 'Pitch', 'Roll', 'Temperatura', 'Presion', 'Altura', 'Coordenada_X', 'Coordenada_Y'])
 
 		df.to_csv("datos.csv", index=False)
+
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	my_app= VentanaPrincipal()
