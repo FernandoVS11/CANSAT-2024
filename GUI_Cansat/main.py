@@ -1,5 +1,3 @@
-# @autor: Magno Efren
-# Youtube: https://www.youtube.com/c/MagnoEfren
 import sys
 import numpy as np
 import pyqtgraph.opengl as gl
